@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="google_sign_out">#db4437</color>
+    <color name="blue_grey_600">#80000000</color>
+    <color name="green_gg">#679e37</color>
+    <color name="blue_gg">#1d87e4</color>
+    <color name="yellow_gg">#fbbc05</color>
+</resources>

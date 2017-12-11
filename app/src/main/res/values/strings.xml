@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Authentication405</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="signed_in">Signed in</string>
+    <string name="signing_in">Signing in…</string>
+    <string name="signed_out">Please Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="your_text">Your Text</string>
+    <string name="your_name">Your Name</string>
+    <string name="loading">Loading…</string>
+</resources>
