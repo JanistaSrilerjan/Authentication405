@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/signed_out"
                 android:textColor="@color/blue_grey_600"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 android:layout_gravity="center"
                 android:layout_marginRight="15dp"
                 />
@@ -122,11 +122,19 @@
 
         </LinearLayout>
         <TextView
-            android:id="@+id/tv_display"
+        android:id="@+id/tv_display_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="22dp"
+        android:textColor="@color/google_sign_out"
+        android:layout_gravity="center"
+        />
+        <TextView
+            android:id="@+id/tv_display_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Message!"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
             android:textSize="22dp"
             android:textColor="@color/google_sign_out"
             android:layout_gravity="center"

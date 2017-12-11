@@ -245,6 +245,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         String strName = edName.getText().toString();
         String strText = edText.getText().toString();
         if(strName.isEmpty()||strText.isEmpty()){
+            strName = "ผู้ไม่ประสงค์ออกนาม";
+            strText = "ทำไมถึงต้องสั่งการบ้านในเวลาที่งานถาโถมเช่นนี้ด้วย";
             Toast.makeText(MainActivity.this,"Please fill in all information.",Toast.LENGTH_LONG).show();
             return;
         }
@@ -253,47 +255,40 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         DatabaseReference mTextRef = mRootRef.child("Record").child(strUid).child("text");
         mNameRef.setValue(strName);
         mTextRef.setValue(strText);
+        Toast.makeText(MainActivity.this,"Save Complete.",Toast.LENGTH_LONG).show();
     }
     public void displayMsg(View view){
-        final TextView shUser = (TextView) findViewById(R.id.tv_display);
-
-
-        mRootRef.addValueEventListener(new ValueEventListener() {
+        final TextView shName = (TextView) findViewById(R.id.tv_display_name);
+        final TextView shText = (TextView) findViewById(R.id.tv_display_text);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String strUid = user.getUid().toString();
+        Toast.makeText(MainActivity.this,"hey2222 ",Toast.LENGTH_LONG).show();
+        mRootRef.child("Record").child(strUid).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot dSnapshot: dataSnapshot.getChildren()) {
-                    final String strUid = dSnapshot.getKey().toString();
-                    mRootRef.child("Record").child(strUid).child("name").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            strUname = dataSnapshot.getValue().toString();
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                    mRootRef.child("Record").child(strUid).child("text").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            strTxt = dataSnapshot.child("Record").child(strUid).child("text").getValue().toString();
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-                shUser.setText("Name : " + strUname + '\n' + "Text : " + strTxt);
+                strUname = dataSnapshot.getValue().toString();
+                Toast.makeText(MainActivity.this,strUname,Toast.LENGTH_LONG).show();
+                shName.setText("Name : " + strUname);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+        mRootRef.child("Record").child(strUid).child("text").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                strTxt = dataSnapshot.getValue().toString();
+                Toast.makeText(MainActivity.this,strTxt,Toast.LENGTH_LONG).show();
+                shText.setText("Text : " + strTxt);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this,"log",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 }
