@@ -205,24 +205,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (user != null) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.status).setVisibility(View.VISIBLE);
-            findViewById(R.id.ed_name).setVisibility(View.VISIBLE);
-            findViewById(R.id.ed_text).setVisibility(View.VISIBLE);
-            findViewById(R.id.tv_name).setVisibility(View.VISIBLE);
-            findViewById(R.id.tv_text).setVisibility(View.VISIBLE);
-            findViewById(R.id.btn_save).setVisibility(View.VISIBLE);
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_button).setVisibility(View.GONE);
-            findViewById(R.id.status).setVisibility(View.VISIBLE);
-            findViewById(R.id.ed_name).setVisibility(View.GONE);
-            findViewById(R.id.ed_text).setVisibility(View.GONE);
-            findViewById(R.id.btn_save).setVisibility(View.GONE);
-            findViewById(R.id.tv_name).setVisibility(View.GONE);
-            findViewById(R.id.tv_text).setVisibility(View.GONE);
         }
     }
 
@@ -245,8 +233,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         String strName = edName.getText().toString();
         String strText = edText.getText().toString();
         if(strName.isEmpty()||strText.isEmpty()){
-            strName = "ผู้ไม่ประสงค์ออกนาม";
-            strText = "ทำไมถึงต้องสั่งการบ้านในเวลาที่งานถาโถมเช่นนี้ด้วย";
             Toast.makeText(MainActivity.this,"Please fill in all information.",Toast.LENGTH_LONG).show();
             return;
         }
@@ -260,14 +246,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void displayMsg(View view){
         final TextView shName = (TextView) findViewById(R.id.tv_display_name);
         final TextView shText = (TextView) findViewById(R.id.tv_display_text);
+        shName.setText("null");
+        shText.setText("null");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String strUid = user.getUid().toString();
-        Toast.makeText(MainActivity.this,"hey2222 ",Toast.LENGTH_LONG).show();
+
         mRootRef.child("Record").child(strUid).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 strUname = dataSnapshot.getValue().toString();
-                Toast.makeText(MainActivity.this,strUname,Toast.LENGTH_LONG).show();
                 shName.setText("Name : " + strUname);
             }
             @Override
@@ -279,13 +266,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 strTxt = dataSnapshot.getValue().toString();
-                Toast.makeText(MainActivity.this,strTxt,Toast.LENGTH_LONG).show();
                 shText.setText("Text : " + strTxt);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this,"log",Toast.LENGTH_LONG).show();
+
             }
         });
 
